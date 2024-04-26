@@ -1,10 +1,10 @@
 FROM python
 LABEL authors="fasadar"
 LABEL description="Telegram Bot for VeloBrotherhood"
-LABEL homepage="https://github.com/fasadar/telegram-bot"
+LABEL homepage="https://github.com/fasadar2/veloGameBot.git"
 LABEL license="MIT"
 LABEL maintainer="fasadar"
-LABEL version="1.0"
+LABEL version="1.0a"
 
 WORKDIR /app
 COPY build.txt ./
