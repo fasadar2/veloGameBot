@@ -1,9 +1,10 @@
 import telebot
-from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton, KeyboardButton, ReplyKeyboardMarkup
+from telebot.types import  KeyboardButton, ReplyKeyboardMarkup
 import time
 from repos.UserRepository import *
 from repos.ResultsRepository import *
-
+from methods.get_values import try_parse_to_float_value
+from methods.logger_to_file import logger_to_file
 time_start = time.time()
 bot = telebot.TeleBot("6752533782:AAFz0C-ZwQrZhavc_8_oxcCHuXRIibFFpKY")
 
@@ -27,25 +28,28 @@ def start(message):
 
 def get_speed(message):
     try:
-        speed = float(message.text)
+        speed = try_parse_to_float_value(message.text)
         bot.send_message(message.chat.id, "Отлично! Теперь введи дистанцию:")
         bot.register_next_step_handler(message, get_distance, speed)
     except ValueError:
-        bot.send_message(message.chat.id, "Пожалуйста, введите числовое значение для скорости. Тепрь все заново, доволен ?")
+        bot.send_message(message.chat.id, "Жулик, не ломай, а теперь все сначала")
+        logger_to_file(f"{message.from_user.id} сломал скорость")
 
 
 def get_distance(message, speed):
     try:
-        distance = float(message.text)
+        distance = try_parse_to_float_value(message.text)
         user = get_or_create_user(message.from_user.id, message.from_user.first_name)
         if user is None:
             raise ConnectionRefusedError
         results = save_results(user, speed, distance)
         bot.send_message(message.chat.id, f"Записал для {results.user_id}, {results.max_speed} {results.distance}")
     except ValueError:
-        bot.send_message(message.chat.id, "Пожалуйста, введите числовое значение для дистанции. Тепрь все заново, доволен ?")
+        bot.send_message(message.chat.id, "Жулик, не ломай, а теперь все сначала")
+        logger_to_file(f"{message.from_user.id} сломал дистанцию")
     except ConnectionRefusedError:
         bot.send_message(message.chat.id, "С вами что-то не так, ожидайте машину с надписью 'хлеб' для выяснения")
+        logger_to_file(f"{message.from_user.id} сломал вселенную(у него юзер пустой)")
 @bot.message_handler(content_types=['text'])
 def text_handler(message):
     match message.text:
@@ -66,6 +70,7 @@ def text_handler(message):
             bot.send_message(message.chat.id, f"{int(time_now - time_start)} секунд")
         case _:
             bot.send_message(message.chat.id, f'Ты поехавший ? Я тебя просил {message.text} вводить ?')
+
 
 
 if __name__ == '__main__':

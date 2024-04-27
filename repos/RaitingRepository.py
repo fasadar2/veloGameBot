@@ -10,8 +10,8 @@ def get_raiting_by_user(user) -> RaitingModel:
 
 
 def get_all_raitings_by_speed() -> list[RaitingModel]:
-    return RaitingModel.select().order_by(RaitingModel.max_speed).limit(3)
+    return RaitingModel.select().order_by(RaitingModel.max_speed)[::-1]
 
 
 def get_all_raitings_by_distance() -> list[RaitingModel]:
-    return RaitingModel.select().order_by(RaitingModel.distance).limit(3)
+    return RaitingModel.select().order_by(RaitingModel.distance)[::-1]
