@@ -5,4 +5,4 @@ def try_parse_to_float_value(value: str) -> float:
             raise ValueError
         return return_value
     except ValueError:
-        return None
+        raise ValueError

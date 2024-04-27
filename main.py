@@ -33,7 +33,7 @@ def get_speed(message):
         bot.register_next_step_handler(message, get_distance, speed)
     except ValueError:
         bot.send_message(message.chat.id, "Жулик, не ломай, а теперь все сначала")
-        logger_to_file(f"{message.from_user.id} сломал скорость")
+        logger_to_file(message.from_user.first_name+" break speed")
 
 
 def get_distance(message, speed):
@@ -46,10 +46,10 @@ def get_distance(message, speed):
         bot.send_message(message.chat.id, f"Записал для {results.user_id}, {results.max_speed} {results.distance}")
     except ValueError:
         bot.send_message(message.chat.id, "Жулик, не ломай, а теперь все сначала")
-        logger_to_file(f"{message.from_user.id} сломал дистанцию")
+        logger_to_file(message.from_user.first_name+" break distance")
     except ConnectionRefusedError:
         bot.send_message(message.chat.id, "С вами что-то не так, ожидайте машину с надписью 'хлеб' для выяснения")
-        logger_to_file(f"{message.from_user.id} сломал вселенную(у него юзер пустой)")
+        logger_to_file(message.from_user.first_name+" break user")
 @bot.message_handler(content_types=['text'])
 def text_handler(message):
     match message.text:
