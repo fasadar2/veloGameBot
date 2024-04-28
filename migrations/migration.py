@@ -1,7 +1,10 @@
 from models.UserModel import UserModel
 from models.ResultsModel import ResultsModel
 from models.RatingModel import RaitingModel
-if __name__ == "__main__":
+from db_config import db
+
+
+def old_but_work():
     print("Starting migration")
     # region Delete tables
     try:
@@ -32,3 +35,7 @@ if __name__ == "__main__":
         print("Table already exists")
     # endregion
     print("End migrations")
+
+
+if __name__ == "__main__":
+    old_but_work()

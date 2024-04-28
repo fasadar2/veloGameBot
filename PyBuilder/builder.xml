@@ -1,0 +1,14 @@
+<packages>
+    <package>
+        <name>pyTelegramBotAPI</name>
+        <version>4.17.0</version>
+    </package>
+    <package>
+        <name>psycopg2</name>
+        <version>2.9.7</version>
+    </package>
+    <package>
+        <name>peewee</name>
+        <version>3.16.3</version>
+    </package>
+</packages>
