@@ -7,10 +7,11 @@ LABEL maintainer="fasadar"
 LABEL version="1.0a"
 
 WORKDIR /app
-COPY build.txt ./
-RUN python -m pip install -r build.txt
 COPY . .
-ENTRYPOINT ["python"]
-CMD ["./migrations/migration.py"]
+COPY PyBuilder/builder.py ./
+COPY PyBuilder/builder.xml ./
+COPY migrations/migration.py ./
+RUN python builder.py
+RUN python migration.py
 ENTRYPOINT ["python"]
 CMD ["./main.py"]

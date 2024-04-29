@@ -5,7 +5,7 @@ def get_raiting_by_user(user) -> RaitingModel:
     try:
         raiting = RaitingModel.select().where(RaitingModel.user_id == user.user_id).get()
     except:
-        raiting = RaitingModel.create(user_id=user, max_speed=0.0, distance=0.0)
+        raiting = RaitingModel.create(user_id=user, max_speed=0.0, distance=0.0,sum_distance = 0.0)
     return raiting
 
 

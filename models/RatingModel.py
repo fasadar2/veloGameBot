@@ -8,6 +8,6 @@ class RaitingModel(BaseModel):
     user_id = ForeignKeyField(UserModel,column_name='user_id')
     max_speed = DecimalField(max_digits=10,column_name='max_speed')
     distance = DecimalField(max_digits=10,column_name='distance')
-
+    sum_distance = DecimalField(max_digits=10,column_name='sum_distance')
     class Meta:
         table_name = "raiting"
